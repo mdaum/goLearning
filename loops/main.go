@@ -62,4 +62,16 @@ func main() {
 		fmt.Println(i)
 		i++
 	}
+
+
+	mySlice := []int{
+		1,2,3,
+	}
+	fmt.Println("mySlice: ", mySlice)
+	// lets try to increment each value in the slice, but we are not going to use value variable...we can acutally ignore it with _
+	for index, _ := range mySlice {
+		// note that doing value++ (assuming we didn't ignore that var) wouldn't modify mySlice, value is a copy!!
+		mySlice[index]++
+	}
+	fmt.Println("mySlice: ", mySlice)
 }

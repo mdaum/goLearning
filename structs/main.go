@@ -8,6 +8,7 @@ type Person struct {
 }
 
 // effectively constructor for Person, not required
+// why capitalized? Well this is actually making it "public" and importable elsewhere
 func NewPerson(name string, age int) Person {
 	return Person{
 		Name: name,
@@ -46,7 +47,7 @@ func main() {
 	changeACopyOfPersonName(myPerson, "Cloud")
 	fmt.Printf("this is my person %+v\n", myPerson)	// it didn't change? thats becuase a COPY was passed to changeName, not a reference
 
-	// lets actually pass ref of myPerson into the function that takes a reference, which will actually change the object
+	// lets actually pass pointer to myPerson into the function that takes a reference, which will actually change the object
 	changeAPersonName(&myPerson, "Cloud")
 	fmt.Printf("this is my person %+v\n", myPerson)
 
@@ -54,4 +55,12 @@ func main() {
 	myPerson.changeName("Zack")
 	fmt.Printf("this is my person %+v\n", myPerson)
 
+	x := 7
+	y := &x // b is the memory address at which a is stored
+	fmt.Printf("x is %d stored at %v\n", x, &x)
+	*y = 9 // this is the same as saying x = 9, we are deferencing b, which is reference to x
+	fmt.Printf("x is %d still stored at %v\n", x, y)
+
+	// note that passing a copy into functions will copy everyting, and I mean everything. if you have a huge nested struct that takes up a lot of memory, it will be copied in its entirety if you pass by copy
+	// depending on the size, you may want to pass by reference *even if* you have no intention of modifying the original to save memory
 }
